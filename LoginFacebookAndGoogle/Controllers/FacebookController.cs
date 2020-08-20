@@ -28,12 +28,12 @@ namespace LoginFacebookAndGoogle.Controllers
         [ValidateAntiForgeryToken]
         public void ExternalLogin(string provider, string returnUrl = null)
         {
-            var properties = new AuthenticationProperties { RedirectUri = Url.Action("ExternalLoginCallback", "Facebook", new { ReturnUrl = returnUrl }) };
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("ExternalLoginCallback", "Facebook") };
             ControllerContext.HttpContext.GetOwinContext().Authentication.Challenge(properties, provider);
 
         }
 
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl = null)
+        public async Task<ActionResult> ExternalLoginCallback()
         {
             Account account = null;
             var info = await AuthenticationManager.GetExternalLoginInfoAsync();
